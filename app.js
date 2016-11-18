@@ -16,8 +16,8 @@ app.get('/', function(req, res){
 app.post('/imageSearch', function(req, res){
   var search = req.body.searchValue;
   console.log(search);
-  lookFor.web(search,
-    {top: 1,
+  lookFor.images(search,
+    {top: 2,
     image: 20400
     },
     function(err, results){
