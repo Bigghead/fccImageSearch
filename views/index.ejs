@@ -5,3 +5,11 @@
   <input type="text" name="search" value="">
   <input type="submit" name="name" value="Submit">
 </form>
+
+
+<% var input = document.querySelector('input'); %>
+<% input.addEventListener('keypress', function(e){ %>
+<%  if(e.keyCode === 13){  %>
+<%    document.querySelector('.done').click();  %>
+<%  }  %>
+<% }); %>

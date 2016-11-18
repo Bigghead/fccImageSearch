@@ -11,7 +11,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/imageSearch', function(req, res){
-  app.send('Success');
+  res.send('Success');
 });
 
 app.listen('5000', function(){
