@@ -4,6 +4,16 @@ var express = require('express'),
     Search = require('bing.search'),
     app = express();
 
+//mongo connection
+mongoose.connect('mongodb://localhost/imageSearch');
+
+var searchSchema = new mongoose.Schema({
+  searchTerm : String,
+  when : String
+});
+
+var images = mongoose.model('Image', searchSchema);
+
 app.use(bodyParser.urlencoded({extended : true}));
 app.set('view engine', 'ejs');
 
@@ -16,6 +26,12 @@ app.get('/', function(req, res){
 app.post('/imageSearch', function(req, res){
   var search = req.body.searchValue;
   console.log(search);
+
+  images.create({
+    searchTerm : search,
+    when : new Date()
+  });
+
   lookFor.images(search,
     {top: 5,
     image: 20400
@@ -25,6 +41,7 @@ app.post('/imageSearch', function(req, res){
       console.log(err);
     } else {
       console.log(results);
+
       for(var i = 0 ; i < results.length; i ++){
         res.json({
           imageURL: results[i].url,
@@ -32,6 +49,16 @@ app.post('/imageSearch', function(req, res){
           pageURL : results[i].sourceUrl
         });
       }
+    }
+  });
+});
+
+app.get('/imageSearch/latest', function(req, res){
+  images.find({}, {'_id' : 0, '__v' : 0}).sort('-1').exec(function(err, results){
+    if(err){
+      console.log(err);
+    } else{
+      res.send(results);
     }
   });
 });
