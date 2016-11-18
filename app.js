@@ -1,6 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
+    lookFor = require('bing.search'),
     app = express();
 
 app.use(bodyParser.urlencoded({extended : true}));
@@ -11,6 +12,8 @@ app.get('/', function(req, res){
 });
 
 app.post('/imageSearch', function(req, res){
+  var search = req.body.searchValue;
+  console.log(search);
   res.send('Success');
 });
 
