@@ -17,7 +17,7 @@ app.post('/imageSearch', function(req, res){
   var search = req.body.searchValue;
   console.log(search);
   lookFor.images(search,
-    {top: 2,
+    {top: 5,
     image: 20400
     },
     function(err, results){
@@ -25,9 +25,15 @@ app.post('/imageSearch', function(req, res){
       console.log(err);
     } else {
       console.log(results);
+      for(var i = 0 ; i < results.length; i ++){
+        res.json({
+          imageURL: results[i].url,
+          altText : results[i].title,
+          pageURL : results[i].sourceUrl
+        });
+      }
     }
   });
-  res.send('Success');
 });
 
 app.listen('5000', function(){
