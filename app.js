@@ -36,7 +36,7 @@ app.post('/imageSearch/', function(req, res){
 
   lookFor.images(search,
     {
-     top: 5,
+     top: 10,
      image: 20400
     },
     function(err, results){
