@@ -23,7 +23,7 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.post('/imageSearch', function(req, res){
+app.post('/imageSearch/', function(req, res){
   var search = req.body.searchValue;
   console.log(search);
 
@@ -48,9 +48,10 @@ app.post('/imageSearch', function(req, res){
         emptyArr.push({
           imageURL :results[i].url,
           altText : results[i].title,
-          sourceURL : results[i].sourceurl
+          sourceURL : results[i].sourceUrl
         });
        }
+       res.json(emptyArr);
       }
     });
 });
