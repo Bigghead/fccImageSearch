@@ -23,8 +23,8 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.post('/imageSearch/', function(req, res){
-  var search = req.body.searchValue;
+app.get('/:imageSearch', function(req, res){
+  var search = req.params.imageSearch;
   console.log(search);
 
   var emptyArr = [];
@@ -43,7 +43,6 @@ app.post('/imageSearch/', function(req, res){
     if(err){
       console.log(err);
     } else {
-      console.log(results);
       for(var i = 0 ; i < results.length; i ++){
         emptyArr.push({
           imageURL :results[i].url,
@@ -56,7 +55,7 @@ app.post('/imageSearch/', function(req, res){
     });
 });
 
-app.get('/imageSearch/latest', function(req, res){
+app.get('/:imageSearch/latest', function(req, res){
   images.find({}, {'_id' : 0, '__v' : 0}).sort('-1').exec(function(err, results){
     if(err){
       console.log(err);
